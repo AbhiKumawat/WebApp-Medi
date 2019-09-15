@@ -1,8 +1,6 @@
 <?php
 
-// Connexion à la base de données
 require_once('bdd.php');
-//echo $_POST['title'];
 session_start();
 
 if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && isset($_POST['color'])  && isset($_POST['type'])){
@@ -19,17 +17,11 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	}
 	$userid = $_SESSION['userid'];
 	// echo "<script type='text/javascript'>alert('$userid');</script>";
+    echo $userid;
+    print_r($_POST['title']);
+	// $sql = "INSERT INTO events(title, start, end, color, type, userid) values ('$title', '$start', '$end', '$color', '$type', '$userid')";
 	
-	$sql = "INSERT INTO events(title, start, end, color, type, userid) values ('$title', '$start', '$end', '$color', '$type', '$userid')";
-	
-	
-	
-	//$req = $bdd->prepare($sql);
-	//$req->execute();
-	
-	// echo $sql;
-	
-	$query = $bdd->prepare( $sql );
+	// $query = $bdd->prepare( $sql );
 	if ($query == false) {
 	 print_r($bdd->errorInfo());
 	 die ('Error in prepare');
@@ -41,8 +33,8 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	}
 
 }
-header('Location: '.$_SERVER['HTTP_REFERER']);
-header("Refresh:0");
+// header('Location: '.$_SERVER['HTTP_REFERER']);
+// header("Refresh:0");
 
 	
 ?>

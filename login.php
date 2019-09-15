@@ -15,23 +15,36 @@ if(isset($_POST['login']))
     $username = mysqli_real_escape_string($con, $_POST["username"]);
     $password = mysqli_real_escape_string($con, $_POST["password"]);
     
-    // echo $username;
-    // echo $password;
-    
+    $hashedCheck = false;
+
     if($username!="" && $password!="")
     {
-        $sql = "SELECT id FROM login WHERE username='$username' and password='$password'";
+        // $sql = "SELECT id FROM login WHERE username='$username' and password='$password'";
+        // $result = mysqli_query($con, $sql) or die("FAIL: $sql BECAUSE: " . mysql_error());
+        // $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        // $id = ($row['id']);
+        
+        $sql = "SELECT * FROM login WHERE username='$username'";
         $result = mysqli_query($con, $sql) or die("FAIL: $sql BECAUSE: " . mysql_error());
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        $id = ($row['id']);
-    
-        $count = mysqli_num_rows($result);
-        if($count == 1)
+       
+        if($row = mysqli_fetch_array($result))
         {
-            $_SESSION["is_login"] = true;
-            $_SESSION["username"] = $username;
-            $_SESSION["userid"] = $id;
-            header("location:cal/index.php");
+            $id = ($row['id']);
+            $count = mysqli_num_rows($result);
+            $hashedCheck = (password_verify($password, $row['password']));    
+            
+            if($count == 1 && $hashedCheck == true)
+            {
+                $_SESSION["is_login"] = true;
+                $_SESSION["username"] = $username;
+                $_SESSION["userid"] = $id;
+                header("location:cal/index.php");
+            }
+            else
+            {
+                echo "Unsuccessful Login";
+                header("location:errorSigningIn/");
+            }
         }
         else{
             echo "Unsuccessful Login";

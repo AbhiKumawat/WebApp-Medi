@@ -31,7 +31,11 @@ $reqPillEvents->execute();
 
 $pillevents = $reqPillEvents->fetchAll();
 $pilleventscount = sizeof($pillevents);
- 
+
+
+// Converting object to associative array 
+$pillevents = json_decode(json_encode($pillevents), true); 
+
 	
 ?>
 
@@ -69,16 +73,21 @@ $pilleventscount = sizeof($pillevents);
 <style>
 .container2
 {
-	padding-top: 60%!important;
+	padding-top: 10%!important;
+}
+body {
+  min-height: 75rem;
 }
 </style>
 <!-- <body style="background: linear-gradient(to right, #CFD1D7, #6B6B6D);"> -->
-<body style="background-color: #4c4c4c;">
+<body style="background-color: 	#DEDBDA;">
 	<!-- <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
 	<img src="logo.PNG" style="height: 50px; width: 10%;">
 	</nav> -->
+	
+	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin: 0%auto!important;">
-		<a class="navbar-brand" href="#">MediDispenser</a>
+		<a class="navbar-brand" href="https://web.njit.edu/~ak979/signin/cal/">MediDispenser</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -86,20 +95,20 @@ $pilleventscount = sizeof($pillevents);
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 			<li class="nav-item active">
-				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="https://web.njit.edu/~ak979/signin/cal/">Home <span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">Contact</a>
 			</li>
-			<li class="nav-item">
+			<!-- <li class="nav-item">
 				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-			</li>
+			</li> -->
 			</ul>
 			<form class="form-inline my-2 my-lg-0" style="float:right!important;">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<!-- <input class="form-control mr-sm-2" type="search" placeholder="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
 				<?php 
-					echo '<a type="button" class="btn bg-dark bg-dark js-scroll-trigger" style="color:white;" style="" href="../logout.php?logout">Logout</a>';
+					echo '<a type="button" class="btn-outline-success my-2 my-sm-0 btn bg-danger js-scroll-trigger" style="color:white;" style="margin-top:3%;" href="../logout.php?logout">Logout</a>';
 				?> 
 			</form>
 		</div>
@@ -107,7 +116,7 @@ $pilleventscount = sizeof($pillevents);
 
 
 	<!-- Page Content -->
-<div class="container-fluid" style="padding-bottom:4%; padding-top:3%;">
+<div class="container-fluid" style="padding-bottom:0%; padding-top:3%;">
 	<div class="container db-social">
     <div class="jumbotron jumbotron-fluid"></div>
     <div class="container-fluid">
@@ -117,20 +126,7 @@ $pilleventscount = sizeof($pillevents);
                     <div class="bg-light widget-body pb-0">
                         <div class="row d-flex align-items-center">
                             <div class="col-xl-4 col-md-4 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
-                                <!-- <ul>
-                                    <li>
-                                        <div class="counter">246</div>
-                                        <div class="heading">Friends</div>
-                                    </li>
-                                    <li>
-                                        <div class="counter">30</div>
-                                        <div class="heading">Online</div>
-                                    </li>
-                                    <li>
-                                        <div class="counter">216</div>
-                                        <div class="heading">Offline</div>
-                                    </li>
-                                </ul> -->
+                            
                             </div>
                             <div class="col-xl-4 col-md-4 d-flex justify-content-center">
                                 <div class="image-default">
@@ -143,22 +139,7 @@ $pilleventscount = sizeof($pillevents);
                             </div>
                             <div class=" col-xl-4 col-md-4 d-flex justify-content-lg-end justify-content-md-end justify-content-center">
                                 <div class="follow">
-								<!-- <a class="btn btn-shadow" href="#"><i class="la la-user-plus"></i>Edit Profile</a> -->
-                                    <!-- <div class="actions dark">
-                                        <div class="dropdown">
-                                            <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-                                                <i class="la la-ellipsis-h"></i>
-                                            </button>
-                                            <div class="dropdown-menu" x-placement="bottom-start" style="display: none; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 35px, 0px);">
-                                                <a href="#" class="dropdown-item">
-                                                Report
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                Block
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div> -->
+								
                                 </div>
                             </div>
                         </div>
@@ -170,27 +151,27 @@ $pilleventscount = sizeof($pillevents);
 </div>
 
 
-<ul class="nav nav-tabs" style="margin:0px auto!important;display: flex;
+<ul class="nav nav-tabs" id="myTabs" style="margin:0px auto!important;display: flex;
 		justify-content: center;width:80%;" role="tablist">
 
 <li class="nav-item">
-    <a class="nav-link" href="#setuptab" role="tab" data-toggle="tab">Setup</a>
+    <a class="nav-link" id="navitemsetup" href="#setuptab" role="tab" data-toggle="tab">Setup</a>
   </li>
 
 <li class="nav-item">
-    <a class="nav-link active" href="#calendartab" role="tab" data-toggle="tab">Calendar</a>
+    <a class="nav-link" id="navitemcalendar" href="#calendartab" role="tab" data-toggle="tab">Calendar</a>
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="#profileinfotab" role="tab" data-toggle="tab">Settings</a>
+    <a class="nav-link" id="navitemsettings" href="#profileinfotab" role="tab" data-toggle="tab">Settings</a>
   </li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content" style="color:white">
-	<div role="tabpanel" class="tab-pane fade in active" id="calendartab">
-		<div class="container-fluid " style="margin:0px auto!important;display: flex; justify-content: center;">
-			<div class="container col-md-6" style="color:black;height:100%!important;width:100%!important;">
+	<div role="tabpanel" id="calendartab" class="tab-pane fade in active" >
+		<div class="container-fluid bg-light" style="margin:0px auto!important;display: flex; justify-content: center;">
+			<div class="container col-md-8" style="color:black;height:100%!important;width:100%!important;">
 				<div class="row">
 					<div class="text-center">
 						<div id="calendar" class="col-centered">
@@ -201,17 +182,17 @@ $pilleventscount = sizeof($pillevents);
 		</div>
 	</div>
 
-	<div role="tabpanel" class="tab-pane fade" id="setuptab">
+	<div role="tabpanel" id="setuptab" class="tab-pane fade">
 		<div class="container-fluid bg-light" id="formsetup" style="margin:0px auto!important;display: flex;justify-content: center; color:black">
-		<h1 class="" id="setupdes"></h1>
+			<h1 class="" id="setupdes"></h1>
 			<div class="col-md-6 container-fluid" >
-				<form id="setup" class="form-horizontal" method="POST" action="addEvent.php">
+				<form id="setup" class="form-horizontal" method="POST" action="addSetupEvents.php">
 					<div class="modal-header">
 						<h4 class="modal-title" id="countPillEvents"></h4>
 						<script language="JavaScript">  						
 							var jspillcount = <?php echo $pilleventscount ?>;
 							// console.log(jspillcount);        
-							document.getElementById('countPillEvents').innerHTML = "# of Pill Events setup: "+jspillcount+" out of total 7 containers.";
+							document.getElementById('countPillEvents').innerHTML = "Setup Pill Container: "+jspillcount".";
 						</script>
 					</div>
 					<div class="modal-body">			
@@ -262,15 +243,19 @@ $pilleventscount = sizeof($pillevents);
 							<div class="col-sm-10">
 								<input type="datetime-local" name="end" class="form-control" id="end">
 							</div>
-							<!-- <select name="color" class="form-control" id="color">
-								<option value="">Choose Dosage Amount</option>
-								<option value="1">1</option>
-								<option value="1">2</option>
-								<option value="1">3</option>
-								<option value="1">4</option>
-							</select> -->
 						</div>
-						
+						<div class="form-group">
+							<label for="start" class="col-sm-2 control-label">Dosage Amount:</label>
+							<div class="col-sm-10">
+								<select name="color" class="form-control" id="color">
+									<option value="">Choose Dosage Amount</option>
+									<option value="1">1</option>
+									<option value="1">2</option>
+									<option value="1">3</option>
+									<option value="1">4</option>
+								</select>
+							</div>
+						</div>
 
 					</div>
 					<div class="modal-footer">
@@ -279,11 +264,15 @@ $pilleventscount = sizeof($pillevents);
 				</form>
 			</div>
 		</div>
+
+		<div class="container-fluid bg-light" id="eventslist" style="margin:0px auto!important;display: flex;justify-content: center; color:black">
+			<h1>LIST OF PILL EVENTS</h1>
+		</div>
 	</div>  
 
-	<div role="tabpanel" class="tab-pane fade" id="profileinfotab">
-		<div class="container-fluid" style="margin:0px auto!important;display: flex;justify-content: center;">
-			<h1 style="">Edit Personal Information</h1>
+	<div role="tabpanel" id="profileinfotab"  class="tab-pane fade" >
+	<div class="container-fluid bg-light" id="eventslist" style="margin:0px auto!important;display: flex;justify-content: center; color:black">
+			<h1>Edit Your Information</h1>
 		</div>
 	</div>
 </div>
@@ -456,14 +445,40 @@ $pilleventscount = sizeof($pillevents);
 	<script>
 	// formsetup
 		var jspillcount = <?php echo $pilleventscount ?>;
-		window.alert(jspillcount);
-		if(jspillcount ==7)
+		// window.alert(jspillcount);
+
+		var x = document.getElementById("navitemsetup");
+		var y = document.getElementById("navitemcalendar");		
+		var z = document.getElementById("navitemsettings");
+		
+
+		if(jspillcount==7)
 		{
+			console.log("calendar active")
+			x.className === "nav-link";
+			
+			y.className === "nav-link active";
+			$('#myTabs a[href="#calendartab"]').tab('show');
+			
+			z.className === "nav-link";
+
 			document.getElementById('formsetup').hidden = true;
+			document.getElementById('eventslist').hidden = false;
 		}
 		else
 		{
+			console.log("setup active")
+
+			x.className === "nav-link active";
+			$('#myTabs a[href="#setuptab"]').tab('show');
+
+
+			y.className === "nav-link";
+			z.className === "nav-link";
+
 			document.getElementById('formsetup').hidden = false;
+			document.getElementById('eventslist').hidden = true;
+
 		}
 		var dt = new Date();
 		var date = dt.getFullYear() + '/' + (((dt.getMonth() + 1) < 10) ? '0' : '') + (dt.getMonth() + 1) + '/' + ((dt.getDate() < 10) ? '0' : '') + dt.getDate();
@@ -564,13 +579,17 @@ $pilleventscount = sizeof($pillevents);
 			
 		});
 	</script>
-<div class="container2">
 	<!-- Footer -->
-	<footer class="py-5">
+	<!-- <footer class="py-5">
 		<p class="m-0 text-center text-black" style="width:100%; font-size:15px;">Copyright &copy; MediPD 2019</p>
-	</footer>
-	<!-- FOOTER -->
-</div>
+	</footer> -->
+	
 </body>
 
+<footer id="sticky-footer" class="py-5 bg-light text-black-50">
+		<div class="text-center" style="color:black;">
+		<small>Copyright &copy; MediDispenser</small>
+		</div>
+  </footer>
+  
 </html>
